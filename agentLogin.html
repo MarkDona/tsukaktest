@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Authentication Example</title>
+</head>
+<body>
+  <h1>Firebase Authentication Example</h1><br>
+  
+  <div id="loginContainer">
+    <h2>Log In</h2>
+    <input type="email" id="emailInput" placeholder="Email" required><br>
+    <br>
+    <input type="password" id="passwordInput" placeholder="Password" required><br>
+    <br>
+    <button onclick="login()">Log In</button>
+  </div>
+
+  <div id="signupContainer">
+    <h2>Sign Up</h2>
+    <input type="name" id="nameInput" placeholder="Full Name" required><br>
+    <br>
+    <input type="email" id="signupEmailInput" placeholder="Email" required><br>
+    <br>
+    <input type="password" id="signupPasswordInput" placeholder="Password" required><br>
+    <br>
+    <input type="phone" id="phoneInput" placeholder="Phone" required><br>
+    <br>
+    <button onclick="signup()">Sign Up</button>
+    
+  </div>
+
+  <div id="userInfoContainer" style="display: none;">
+    <h2>User Info</h2>
+    <p id="userInfo"></p>
+    <button onclick="logout()">Log Out</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/firebase-auth.js"></script>
+  <script src="js/generate-token.js"></script>
+  <script src="js/global.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

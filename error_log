@@ -1,0 +1,27 @@
+[25-Jun-2023 23:59:49 UTC] PHP Warning:  require(vendor/PHPMailer/PHPMailer/src/Exception.php): Failed to open stream: No such file or directory in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[25-Jun-2023 23:59:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/PHPMailer/PHPMailer/src/Exception.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home4/enchdev/public_html/tsuktest/sendEmail.php:8
+Stack trace:
+#0 {main}
+  thrown in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[26-Jun-2023 00:11:01 UTC] PHP Warning:  require(vendor/PHPMailer/PHPMailer/src/Exception.php): Failed to open stream: No such file or directory in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[26-Jun-2023 00:11:01 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/PHPMailer/PHPMailer/src/Exception.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home4/enchdev/public_html/tsuktest/sendEmail.php:8
+Stack trace:
+#0 {main}
+  thrown in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[26-Jun-2023 00:16:16 UTC] PHP Warning:  require(vendor/PHPMailer/PHPMailer/src/Exception.php): Failed to open stream: No such file or directory in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[26-Jun-2023 00:16:16 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/PHPMailer/PHPMailer/src/Exception.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home4/enchdev/public_html/tsuktest/sendEmail.php:8
+Stack trace:
+#0 {main}
+  thrown in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 8
+[26-Jun-2023 00:18:23 UTC] PHP Warning:  require(vendor/PHPMailer/PHPMailer/src/Exception.php): Failed to open stream: No such file or directory in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 10
+[26-Jun-2023 00:18:23 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/PHPMailer/PHPMailer/src/Exception.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home4/enchdev/public_html/tsuktest/sendEmail.php:10
+Stack trace:
+#0 {main}
+  thrown in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 10
+[26-Jun-2023 00:20:18 UTC] PHP Warning:  require(vendor/PHPMailer/PHPMailer/src/PHPMailer.php): Failed to open stream: No such file or directory in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 11
+[26-Jun-2023 00:20:18 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'vendor/PHPMailer/PHPMailer/src/PHPMailer.php' (include_path='.:/opt/cpanel/ea-php80/root/usr/share/pear') in /home4/enchdev/public_html/tsuktest/sendEmail.php:11
+Stack trace:
+#0 {main}
+  thrown in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 11
+[26-Jun-2023 15:52:24 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home4/enchdev/public_html/tsuktest/vendor/phpmailer/phpmailer/src/SMTP.php:288) in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 76
+[26-Jun-2023 15:53:22 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home4/enchdev/public_html/tsuktest/vendor/phpmailer/phpmailer/src/SMTP.php:288) in /home4/enchdev/public_html/tsuktest/sendEmail.php on line 76

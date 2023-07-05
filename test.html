@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Token Generator</title>
+  <style>
+    /* CSS styles for the page */
+    #link-frame {
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
+    #copy-link-button {
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    // Function to generate the token and display the link in a frame
+    function generateLink() {
+      var token = generateToken(); // Your token generation logic here
+      var linkWithToken = "https://tsuk.enaitchdevelopers.com?token=" + token;
+      
+      // Create an iframe element and set the link as its source
+      var iframe = document.createElement("iframe");
+      iframe.src = linkWithToken;
+      iframe.id = "link-frame";
+      
+      // Append the iframe to the page
+      var container = document.getElementById("link-container");
+      container.innerHTML = ""; // Clear previous content
+      container.appendChild(iframe);
+      
+      // Create the "Copy Link" button
+      var copyButton = document.createElement("button");
+      copyButton.textContent = "Copy Link";
+      copyButton.id = "copy-link-button";
+      copyButton.onclick = function() {
+        copyLinkToClipboard(linkWithToken);
+      };
+      
+      // Append the button to the page
+      container.appendChild(copyButton);
+    }
+    
+    // Function to copy the link to the clipboard
+    function copyLinkToClipboard(link) {
+      // Copy the link to the clipboard (implementation depends on browser support)
+      navigator.clipboard.writeText(link).then(function() {
+        alert("Link copied to clipboard!");
+      }, function() {
+        alert("Failed to copy link to clipboard!");
+      });
+    }
+    
+    // Function to generate a random token
+    function generateToken() {
+      // Your token generation logic here
+      return "abc123";
+    }
+  </script>
+</head>
+<body>
+  <!-- HTML elements for your page -->
+  <div>
+    <input type="text" placeholder="Candidate Name" minlength="5" /><br>
+    <input type="email" placeholder="Candidate Email" /><br>
+    <button onclick="generateLink()" style="background-color: #FC6A03; color: white;">Generate Link</button>
+  </div>
+  <div id="link-container"></div>
+</body>
+</html>

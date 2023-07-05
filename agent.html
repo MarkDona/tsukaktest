@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Link Generator</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      text-align: center;
+    }
+
+    #logo {
+      margin-top: 50px;
+    }
+
+      #form {
+      margin-top: 50px;
+    }
+
+    #form input {
+      width: 300px;
+      height: 40px;
+      font-size: 18px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    #generate-button {
+      margin-top: 20px;
+      background-color: #FC6A03;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #link-container {
+      margin-top: 50px;
+      display: none;
+    }
+
+    #link {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    #copy-button {
+      background-color: #FC6A03;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #table-container {
+      margin-top: 50px;
+      display: none;
+      text-align: center;
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+  </style>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+  <script id="MainScript">
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+    apiKey: "AIzaSyBC_dZWmvdBt0tc9Z8H2Xcl0UTExlb5N_A",
+    authDomain: "tsuk-1d7b1.firebaseapp.com",
+    databaseURL: "https://tsuk-1d7b1-default-rtdb.firebaseio.com",
+    projectId: "tsuk-1d7b1",
+    storageBucket: "tsuk-1d7b1.appspot.com",
+    messagingSenderId: "462961223565",
+    appId: "1:462961223565:web:f5f8838f0beffb475effc4"
+  };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+    function generateToken() {
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var token = "";
+
+      for (var i = 0; i < 8; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        token += characters.charAt(randomIndex);
+      }
+
+      return token;
+    }
+
+    function saveTokenToFirebase(token, candidateName, candidateEmail) {
+      var tokenData = {
+        token: token,
+        candidateName: candidateName,
+        candidateEmail: candidateEmail,
+        linkWithToken: `https://tsuk.enaitchdevelopers.com?token=${token}`,
+        linkStatus: 'Yes',
+        tokenStatus: 'Active'
+      };
+
+      var newTokenKey = firebase.database().ref().child('tokens').push().key;
+      var updates = {};
+      updates['/tokens/' + newTokenKey] = tokenData;
+
+      return firebase.database().ref().update(updates);
+    }
+
+    function generateLink() {
+      var candidateName = document.getElementById("candidate-name").value;
+      var candidateEmail = document.getElementById("candidate-email").value;
+
+      if (candidateName.length < 5) {
+        alert("Candidate Name should have a minimum of 5 characters.");
+        return;
+      }
+
+      if (!isValidEmail(candidateEmail)) {
+        alert("Candidate Email should be a valid email address.");
+        return;
+      }
+
+      var token = generateToken();
+      saveTokenToFirebase(token, candidateName, candidateEmail);
+
+      var linkContainer = document.getElementById("link-container");
+      var linkElement = document.getElementById("link");
+      var copyButton = document.getElementById("copy-button");
+
+      linkElement.textContent = `https://tsuk.enaitchdevelopers.com?token=${token}`;
+      linkContainer.style.display = "block";
+      copyButton.style.display = "block";
+    }
+
+    function isValidEmail(email) {
+      // Simple email format validation
+      var emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
+    }
+
+    function copyLink() {
+      var linkElement = document.getElementById("link");
+      var link = linkElement.textContent;
+
+      // Copy the link to the clipboard
+      navigator.clipboard.writeText(link).then(function() {
+        console.log("Link copied to clipboard: " + link);
+      });
+
+      readData();
+    }
+
+    function readData() {
+      var tableContainer = document.getElementById("table-container");
+      var tokenTable = document.getElementById("token-table");
+      tokenTable.innerHTML = ""; // Clear the existing table
+
+      var tableHeader = "<tr><th>Token ID</th><th>Token</th><th>Link With Token</th><th>Link Status</th><th>Candidate Name</th><th>Candidate Email</th><th>Token Status</th></tr>";
+      var tableRows = "";
+
+      var tableRef = firebase.database().ref("tokens");
+
+      // Attach a listener to read the data from the table
+      tableRef.on("value", function(dataSnapshot) {
+        dataSnapshot.forEach(function(childSnapshot) {
+          var id = childSnapshot.key;
+          var childData = childSnapshot.val();
+
+          var token = childData.token;
+          var linkWithToken = childData.linkWithToken;
+          var linkStatus = childData.linkStatus;
+          var candidateName = childData.candidateName;
+          var candidateEmail = childData.candidateEmail;
+          var tokenStatus = childData.tokenStatus;
+
+          tableRows += "<tr>";
+          tableRows += "<td>" + id + "</td>";
+          tableRows += "<td>" + token + "</td>";
+          tableRows += "<td class='uncopyable'>" + linkWithToken + "</td>";
+          tableRows += "<td>" + linkStatus + "</td>";
+          tableRows += "<td>" + candidateName + "</td>";
+          tableRows += "<td>" + candidateEmail + "</td>";
+          tableRows += "<td>" + tokenStatus + "</td>";
+          tableRows += "</tr>";
+
+          tokenTable.innerHTML = tableHeader + tableRows;
+        });
+
+        tableContainer.style.display = "block";
+      });
+    }
+     function generateTokenTable() {
+      var token = generateToken();
+      var linkWithToken = "https://tsuk.enaitchdevelopers.com?token=" + token;
+      var candidateName = document.getElementById("candidate-name").value;
+      var candidateEmail = document.getElementById("candidate-email").value;
+
+      // Save token details to Firebase
+      saveTokenToFirebase(token, linkWithToken, 'Active', candidateName, candidateEmail);
+      readData();
+    }
+    
+    // Prevent copying of "LinkWithToken" from the table
+    document.addEventListener('DOMContentLoaded', function() {
+      var uncopyableCells = document.getElementsByClassName('uncopyable');
+
+      Array.from(uncopyableCells).forEach(function(cell) {
+        cell.addEventListener('copy', function(event) {
+          event.preventDefault();
+          return false;
+        });
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+
+  <div id="form">
+    <input type="text" id="candidate-name" placeholder="Candidate Name" minlength="5"><br>
+    <input type="text" id="candidate-email" placeholder="Candidate Email"><br>
+    <button id="generate-button" onclick="generateLink()">Generate Link</button>
+  </div>
+
+  <div id="link-container">
+    <p id="link"></p>
+    <button id="copy-button" onclick="copyLink()">Copy Link</button>
+  </div>
+
+  <div id="table-container">
+    <table id="token-table"></table>
+  </div>
+</body>
+</html>

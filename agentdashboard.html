@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+                
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .dashboard-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .dashboard-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .dashboard-header h1 {
+      margin: 0;
+    }
+
+    .dashboard-logout {
+      font-size: 14px;
+      cursor: pointer;
+      padding: 5px 10px;
+      background-color: #f44336;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .analytics-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .analytics-box {
+      flex: 1;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .analytics-box h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h1>Welcome to the Dashboard</h1>
+      <button class="dashboard-logout" onclick="logout()">Log Out</button>
+    </div>
+
+    <div class="analytics-container">
+      <div class="analytics-box">
+        <h2>Total Tokens</h2>
+        <p id="total"></p>
+      </div>
+      <div class="analytics-box">
+        <h2>Revenue</h2>
+        <p id="revenue"></p>
+      </div>
+      <div class="analytics-box">
+        <h2>Page Views</h2>
+        <p id="pageViews"></p>
+      </div>
+    </div>
+
+    <div class="field button-field">
+        <button onclick="readData()">Generate Tokens</button>
+    </div>
+    <table id="token-table"></table>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/get-agent-data.js"></script>
+    
+  </div>
+  
+</body>
+</html>

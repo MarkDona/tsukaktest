@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Token Generator</title>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      text-align: center;
+    }
+
+    #logo {
+      margin-top: 50px;
+    }
+
+    #text {
+      margin-top: 100px;
+      font-size: 24px;
+    }
+
+    #button {
+      margin-top: 50px;
+      background-color: #FC6A03;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #token-table {
+      margin-top: 50px;
+      border-collapse: collapse;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid black;
+    }
+
+    select {
+      width: 100%;
+    }
+  </style>
+</head>
+<body onload="javascript:readData()">
+
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-database.js"></script>
+<script id="MainScript">
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBC_dZWmvdBt0tc9Z8H2Xcl0UTExlb5N_A",
+    authDomain: "tsuk-1d7b1.firebaseapp.com",
+    databaseURL: "https://tsuk-1d7b1-default-rtdb.firebaseio.com",
+    projectId: "tsuk-1d7b1",
+    storageBucket: "tsuk-1d7b1.appspot.com",
+    messagingSenderId: "462961223565",
+    appId: "1:462961223565:web:f5f8838f0beffb475effc4"
+  };
+
+  // Initialize Firebase
+   firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+</script>
+
+  <div id="logo">
+    <!-- Replace 'logo.png' with the path to your logo image -->
+    <img src="logo.png" alt="Logo">
+  </div>
+  
+  <div id="text">
+    <p>Welcome, please click the button below to generate tokens.</p>
+  </div>
+
+  <div id="button">
+    <button onclick="generateTokenTable()">Generate Tokens</button>
+  </div>
+
+  <table id="token-table"></table>
+</body>
+</html>
