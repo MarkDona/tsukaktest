@@ -88,11 +88,22 @@ form{
     background-color: #016dcb;
 }
 .form-link{
-    text-align: center;
+    text-align: right;
     margin-top: 10px;
 }
 .form-link span,
 .form-link a{
+    font-size: 14px;
+    font-weight: 400;
+    color: #232836;
+}
+
+.form-link-a{
+    text-align: center;
+    margin-top: 10px;
+}
+.form-link-a span,
+.form-link-a a{
     font-size: 14px;
     font-weight: 400;
     color: #232836;
