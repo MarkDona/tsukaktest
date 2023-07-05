@@ -8,7 +8,7 @@ function login() {
         var user = userCredential.user;
         agentID = user.uid;
 
-        window.location.href = "dashboard.html";
+        window.location.href = "dashboard";
       })
       .catch((error) => {
         // Handle sign-in errors
