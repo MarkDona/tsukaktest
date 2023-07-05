@@ -62,6 +62,6 @@ if(!$mail->send()) {
     echo 'Message could not be sent. Mailer Error: '.$mail->ErrorInfo; 
 } else { 
     // If email is successful, redirect back to dashboard with a Get data
-    header("Location: https://enaitchdevelopers.com/tsuktest/dashboard.html?emailStatus=sent"); 
+    header("Location: https://tsuks-marvelous-project.webflow.io/dashboard?emailStatus=sent"); 
     die();
 }

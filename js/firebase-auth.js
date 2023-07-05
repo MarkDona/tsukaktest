@@ -21,7 +21,7 @@ function login() {
 
   // Function to redirect to the next page with the user ID
   function redirectToNextPage() {
-    var nextPageUrl = "dashboard.html";
+    var nextPageUrl = "dashboard";
     window.location.href = nextPageUrl;
   }
   
@@ -48,7 +48,7 @@ function login() {
         })
         .then(function() {
           console.log("Data submitted successfully!");
-          window.location.href = "dashboard.html"; 
+          window.location.href = "dashboard"; 
         })
         .catch(function(error) {
           console.log("Error submitting data: ", error);
