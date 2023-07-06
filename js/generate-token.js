@@ -146,7 +146,7 @@ var newTokenKey = "";
       firebase.auth().signOut()
         .then(() => {
           // User signed out successfully
-          window.location.href = "login.html";
+          window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
         })
         .catch((error) => {
           console.error('Logout error:', error);

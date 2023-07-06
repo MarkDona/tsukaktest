@@ -8,7 +8,7 @@ function login() {
         var user = userCredential.user;
         agentID = user.uid;
 
-        window.location.href = "dashboard";
+        window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
       })
       .catch((error) => {
         // Handle sign-in errors
@@ -21,7 +21,7 @@ function login() {
 
   // Function to redirect to the next page with the user ID
   function redirectToNextPage() {
-    var nextPageUrl = "dashboard";
+    var nextPageUrl = "https://tsuks-marvelous-project.webflow.io/dashboard";
     window.location.href = nextPageUrl;
   }
   
@@ -48,7 +48,7 @@ function login() {
         })
         .then(function() {
           console.log("Data submitted successfully!");
-          window.location.href = "dashboard"; 
+          window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard"; 
         })
         .catch(function(error) {
           console.log("Error submitting data: ", error);
@@ -68,7 +68,7 @@ function login() {
     firebase.auth().signOut()
       .then(() => {
         // User signed out successfully
-        window.location.href = "index.html";
+        window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
       })
       .catch((error) => {
         console.error('Logout error:', error);
