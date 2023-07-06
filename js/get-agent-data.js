@@ -38,25 +38,35 @@ function countTokens() {
   
         var totalTokens = 0;
         var activeTokens = 0;
+        var unverifiedTokens = 0;
+        var verifiedTokens = 0;
 
             tokensRef.once("value").then(function(snapshot) {
-                snapshot.forEach(function(childSnapshot) {
-                var token = childSnapshot.val();
-                totalTokens++;
+                  snapshot.forEach(function(childSnapshot) {
+                  var token = childSnapshot.val();
+                  totalTokens++;
 
-                document.getElementById("total-Tokens").innerHTML = totalTokens;
+                  document.getElementById("total-Tokens").innerHTML = totalTokens;
 
-                if (token.tokenStatus === "Active") {
-                    activeTokens++;
-                    document.getElementById("total-Active-Tokens").innerHTML = activeTokens; 
-                }else {
-                    
-                    document.getElementById("total-Active-Tokens").innerHTML = activeTokens;
-                }
-                });
+                  if (token.tokenStatus === "Active") {
+                      activeTokens++;
+                      document.getElementById("total-Active-Tokens").innerHTML = activeTokens; 
+
+                  }else  if (token.tokenStatus === "Unverified"){
+
+                    unverifiedTokens++;
+                    document.getElementById("total-Unverified-Tokens").innerHTML = unverifiedTokens;
+                  }else {
+
+                    verifiedTokens++;
+                    document.getElementById("total-Verified-Tokens").innerHTML = verifiedTokens;
+                  }
+              });
 
                 console.log("Total tokens: ", totalTokens);
                 console.log("Active tokens: ", activeTokens);
+                console.log("Unverified tokens: ", unverifiedTokens);
+                
             }).catch(function(error) {
                 console.log("Error retrieving tokens: ", error);
             });
