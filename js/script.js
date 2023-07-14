@@ -5,7 +5,6 @@ const forms = document.querySelector(".forms"),
 
 pwShowHide.forEach(eyeIcon => {
     eyeIcon.addEventListener("click", () => {
-      preventDefault();
         let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
         
         pwFields.forEach(password => {
