@@ -25,7 +25,7 @@ var newTokenKey = "";
           token: token,
           candidateName: candidateName,
           candidateEmail: candidateEmail,
-          linkWithToken: `http://localhost/tsukMail/application-landing-page.html`,
+          linkWithToken: `https://tsuks-marvelous-project.webflow.io/application-landing-page`,
           linkStatus: 'Copied',
           tokenStatus: 'Active',
           createdAt: timestamp,
@@ -88,7 +88,7 @@ var newTokenKey = "";
           console.log("AgentID: " + agentID);
 
 
-          var link = "http://localhost/tsukMail/application-landing-page.html" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
+          var link = "https://tsuks-marvelous-project.webflow.io/application-landing-page" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
           
           var linkContainer = document.getElementById("link-container");
           var linkElement = document.getElementById("link");
@@ -145,7 +145,7 @@ var newTokenKey = "";
       firebase.auth().signOut()
         .then(() => {
           // User signed out successfully
-          window.location.href = "login.html";
+          window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
         })
         .catch((error) => {
           console.error('Logout error:', error);
