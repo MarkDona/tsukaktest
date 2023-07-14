@@ -8,7 +8,19 @@ function login() {
         var user = userCredential.user;
         agentID = user.uid;
 
-        window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
+        var databaseRef = firebase.database().ref("/agents/" + agentID);
+
+        databaseRef.once("value").then(function(snapshot){
+          var agentData = snapshot.val();
+
+          if (agentData.accountStatus == "unapproved"){
+            alert("Sorry your account is not yet approved!");
+          }else {
+            window.location.href = "dashboard.html";
+          }
+
+        })
+
       })
       .catch((error) => {
         // Handle sign-in errors
@@ -21,7 +33,7 @@ function login() {
 
   // Function to redirect to the next page with the user ID
   function redirectToNextPage() {
-    var nextPageUrl = "https://tsuks-marvelous-project.webflow.io/dashboard";
+    var nextPageUrl = "dashboard.html";
     window.location.href = nextPageUrl;
   }
   
@@ -38,22 +50,46 @@ function login() {
         var user = userCredential.user;
         var agentID = user.uid;
 
+        var timestamp = new Date().toJSON();
+
         var databaseRef = firebase.database().ref("/agents/" + agentID);
+        
   
         var newDataRef = databaseRef;
+        
+
+        console.log(timestamp);
+
         newDataRef.set({
           agentName: name,
           agentEmail: email,
-          agentPhone: phone
+          agentPhone: phone,
+          createdAt: timestamp,
+          accountStatus: "unapproved"
         })
         .then(function() {
+
           console.log("Data submitted successfully!");
-          window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard"; 
+
+          databaseRef.once("value").then(function(snapshot){
+            var agentData = snapshot.val();
+            if (agentData.accountStatus == "unapproved"){
+              alert("Sorry your account is not yet approved!");
+            }else {
+              window.location.href = "dashboard.html";
+            }
+
+          })
+           
         })
         .catch(function(error) {
           console.log("Error submitting data: ", error);
         });
-            
+        
+        var updates = {};
+        updates['/tokens/'] = "";
+        firebase.database().ref('agents/' + agentID).update(updates);
+
       })
       .catch((error) => {
         // Handle signup errors
@@ -63,12 +99,13 @@ function login() {
       });
       
     }
+
   
   function logout() {
     firebase.auth().signOut()
       .then(() => {
         // User signed out successfully
-        window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
+        window.location.href = "index.html";
       })
       .catch((error) => {
         console.error('Logout error:', error);

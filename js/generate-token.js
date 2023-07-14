@@ -18,24 +18,22 @@ var newTokenKey = "";
         if (user) {
           // User is signed in.
           agentID = user.uid;
+          var timestamp = new Date().toJSON();
           console.log("AgentID: " + agentID);
 
           var tokenData = {
           token: token,
           candidateName: candidateName,
           candidateEmail: candidateEmail,
-          linkWithToken: `https://tsuks-marvelous-project.webflow.io/application-landing-page`,
+          linkWithToken: `http://localhost/tsukMail/application-landing-page.html`,
           linkStatus: 'Copied',
-          tokenStatus: 'Active'
+          tokenStatus: 'Active',
+          createdAt: timestamp,
+          linkAccessedAt: '',
+          formSubmittedAt: ''
         };
 
         newTokenKey = firebase.database().ref().child('tokens').push().key;
-        
-        // Get The Newly Generated Link for Emailing 
-        var fullLink = `https://tsuks-marvelous-project.webflow.io/application-landing-page?agentID=` +agentID+'&tokenID=' +newTokenKey;
-        document.getElementById("generated-link").value = fullLink;
-        
-        
         var updates = {};
         updates['/tokens/' + newTokenKey] = tokenData;
         firebase.database().ref('agents/' + agentID).update(updates);
@@ -50,6 +48,7 @@ var newTokenKey = "";
 
 
     function getCandidateData(){
+
        var candidateName = document.getElementById("candidate-name").value;
        var candidateEmail = document.getElementById("candidate-email").value;
 
@@ -89,7 +88,7 @@ var newTokenKey = "";
           console.log("AgentID: " + agentID);
 
 
-          var link = "https://tsuks-marvelous-project.webflow.io/application-landing-page" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
+          var link = "http://localhost/tsukMail/application-landing-page.html" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
           
           var linkContainer = document.getElementById("link-container");
           var linkElement = document.getElementById("link");
@@ -146,7 +145,7 @@ var newTokenKey = "";
       firebase.auth().signOut()
         .then(() => {
           // User signed out successfully
-          window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
+          window.location.href = "login.html";
         })
         .catch((error) => {
           console.error('Logout error:', error);

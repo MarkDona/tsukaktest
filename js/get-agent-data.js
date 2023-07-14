@@ -24,7 +24,7 @@ function getTokenIdFromFirebase() {
 
     return tokenId;
 
-  }
+}
 
 // Function to count the number of tokens and active tokens
 function countTokens() {
@@ -46,21 +46,24 @@ function countTokens() {
                   var token = childSnapshot.val();
                   totalTokens++;
 
-                  document.getElementById("total-Tokens").innerHTML = totalTokens;
+                  if(token){
+                    document.getElementById("total-Tokens").innerHTML = totalTokens;
 
-                  if (token.tokenStatus === "Active") {
-                      activeTokens++;
-                      document.getElementById("total-Active-Tokens").innerHTML = activeTokens; 
+                    if (token.tokenStatus === "Active") {
+                        activeTokens++;
+                        document.getElementById("total-Active-Tokens").innerHTML = activeTokens; 
 
-                  }else  if (token.tokenStatus === "Unverified"){
+                    }else  if (token.tokenStatus === "unverified"){
 
-                    unverifiedTokens++;
-                    document.getElementById("total-Unverified-Tokens").innerHTML = unverifiedTokens;
-                  }else {
+                      unverifiedTokens++;
+                      document.getElementById("total-Unverified-Tokens").innerHTML = unverifiedTokens;
+                    }else {
 
-                    verifiedTokens++;
-                    document.getElementById("total-Verified-Tokens").innerHTML = verifiedTokens;
+                      verifiedTokens++;
+                      document.getElementById("total-Verified-Tokens").innerHTML = verifiedTokens;
+                    }
                   }
+                  
               });
 
                 console.log("Total tokens: ", totalTokens);
@@ -115,7 +118,7 @@ function disableButton(state) {
 //fetch agent, token and candidate info on dashboard load 
 function readData(){
 
-    // checkTokenStatus();
+    //checkTokenStatus();
     countTokens();
     //getTokenIdFromFirebase();
 
@@ -123,19 +126,13 @@ function readData(){
         if (user) {
           // User is signed in.
 
-        //   Send User Email to Form 
-          document.getElementById("agent-email").value = user.email;
-
-
           var agentID = user.uid;
           console.log("AgentID: " + agentID);
 
           var tbody = document.querySelector("#data-table tbody");
           tbody.innerHTML = "";
 
-
             var agentCollectionId = agentID;
-
 
             var link = "";
             var token = "";
@@ -154,7 +151,6 @@ function readData(){
                     var tokenData = childSnapshot.val();
 
                     var row = document.createElement("tr");
-
 
                     // Create table data cells and populate with data
                     tokenId = document.createElement("td");
