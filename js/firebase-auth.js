@@ -16,7 +16,7 @@ function login() {
           if (agentData.accountStatus == "unapproved"){
             alert("Sorry your account is not yet approved!");
           }else {
-            window.location.href = "dashboard.html";
+            window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
           }
 
         })
@@ -33,7 +33,7 @@ function login() {
 
   // Function to redirect to the next page with the user ID
   function redirectToNextPage() {
-    var nextPageUrl = "dashboard.html";
+    var nextPageUrl = "https://tsuks-marvelous-project.webflow.io/dashboard";
     window.location.href = nextPageUrl;
   }
   
@@ -76,7 +76,7 @@ function login() {
             if (agentData.accountStatus == "unapproved"){
               alert("Sorry your account is not yet approved!");
             }else {
-              window.location.href = "dashboard.html";
+              window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
             }
 
           })
@@ -105,10 +105,11 @@ function login() {
     firebase.auth().signOut()
       .then(() => {
         // User signed out successfully
-        window.location.href = "index.html";
+        window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
       })
       .catch((error) => {
         console.error('Logout error:', error);
       });
   }
+
 
