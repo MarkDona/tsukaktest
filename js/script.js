@@ -1,6 +1,6 @@
 
 const forms = document.querySelector(".forms"),
-  const pwShowHide = document.querySelectorAll(".eye-icon");
+      pwShowHide = document.querySelectorAll(".eye-icon"),
       links = document.querySelectorAll(".link");
 
 pwShowHide.forEach(eyeIcon => {
@@ -19,6 +19,7 @@ pwShowHide.forEach(eyeIcon => {
         
     })
 })      
+
 
 links.forEach(link => {
     link.addEventListener("click", e => {
