@@ -1,7 +1,7 @@
 
-// const forms = document.querySelector(".forms"),
+const forms = document.querySelector(".forms"),
   const pwShowHide = document.querySelectorAll(".eye-icon");
-      // links = document.querySelectorAll(".link");
+      links = document.querySelectorAll(".link");
 
 pwShowHide.forEach(eyeIcon => {
     eyeIcon.addEventListener("click", () => {
@@ -21,9 +21,9 @@ pwShowHide.forEach(eyeIcon => {
     })
 })      
 
-// links.forEach(link => {
-//     link.addEventListener("click", e => {
-//        e.preventDefault(); //preventing form submit
-//        forms.classList.toggle("show-signup");
-//     })
-// })
+links.forEach(link => {
+    link.addEventListener("click", e => {
+       e.preventDefault(); //preventing form submit
+       forms.classList.toggle("show-signup");
+    })
+})
