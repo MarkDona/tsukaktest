@@ -76,7 +76,7 @@ function login() {
             var agentData = snapshot.val();
             if (agentData.accountStatus == "unapproved"){
               alert("Sorry your account is not yet approved!");
-                window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
+                // window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
             }else {
               window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
             }
