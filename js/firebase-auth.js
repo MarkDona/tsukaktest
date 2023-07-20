@@ -14,8 +14,8 @@ function login() {
           var agentData = snapshot.val();
 
           if (agentData.accountStatus == "unapproved"){
-               window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
-            // alert("Sorry your account is not yet approved!");
+            alert("Sorry your account is not yet approved!");
+              window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
           }else {
             window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
           }
@@ -75,7 +75,7 @@ function login() {
           databaseRef.once("value").then(function(snapshot){
             var agentData = snapshot.val();
             if (agentData.accountStatus == "unapproved"){
-              // alert("Sorry your account is not yet approved!");
+              alert("Sorry your account is not yet approved!");
                 window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
             }else {
               window.location.href = "https://tsuks-marvelous-project.webflow.io/dashboard";
