@@ -4,6 +4,15 @@ function isValidEmail(email) {
       var emailRegex = /\S+@\S+\.\S+/;
       return emailRegex.test(email);
     }
+function generateToken() {
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var token = "";
+      for (var i = 0; i < 8; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        token += characters.charAt(randomIndex);
+      }
+      return token;
+    }
 
 function getCandidateData() {
       var candidateName = document.getElementById("candidate-name").value;
@@ -27,16 +36,6 @@ function getCandidateData() {
   document.addEventListener('DOMContentLoaded', function() {
     var agentID = "";
     var newTokenKey = "";
-
-    function generateToken() {
-      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      var token = "";
-      for (var i = 0; i < 8; i++) {
-        var randomIndex = Math.floor(Math.random() * characters.length);
-        token += characters.charAt(randomIndex);
-      }
-      return token;
-    }
 
     function saveTokenToFirebase(token, candidateName, candidateEmail) {
       firebase.auth().onAuthStateChanged(function(user) {
