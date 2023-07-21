@@ -16,6 +16,13 @@ function getCandidateData() {
        saveTokenToFirebase(token, candidateName, candidateEmail);
     }
 
+function isValidEmail(email) {
+     // Simple email format validation
+      var emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
+    }
+
+
 // Wrap the code inside the DOMContentLoaded event listener
   document.addEventListener('DOMContentLoaded', function() {
     var agentID = "";
@@ -107,12 +114,6 @@ function getCandidateData() {
         }
         
       });
-    }
-
-    function isValidEmail(email) {
-     // Simple email format validation
-      var emailRegex = /\S+@\S+\.\S+/;
-      return emailRegex.test(email);
     }
 
     function copyLink() {
