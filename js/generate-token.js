@@ -4,6 +4,39 @@ function isValidEmail(email) {
       var emailRegex = /\S+@\S+\.\S+/;
       return emailRegex.test(email);
     }
+
+function saveTokenToFirebase(token, candidateName, candidateEmail) {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          agentID = user.uid;
+          var timestamp = new Date().toJSON();
+          console.log("AgentID: " + agentID);
+
+          var tokenData = {
+          token: token,
+          candidateName: candidateName,
+          candidateEmail: candidateEmail,
+          linkWithToken: ` https://tsuks-marvelous-project.webflow.io/application-landing-page`,
+          linkStatus: 'Copied',
+          tokenStatus: 'Active',
+          createdAt: timestamp,
+          linkAccessedAt: '',
+          formSubmittedAt: ''
+        };
+
+        newTokenKey = firebase.database().ref().child('tokens').push().key;
+        var updates = {};
+        updates['/tokens/' + newTokenKey] = tokenData;
+        firebase.database().ref('agents/' + agentID).update(updates);
+        console.log("New Key:" + newTokenKey);
+
+        generateLink(newTokenKey);
+        return newTokenKey;
+        } 
+      });
+    }
+
 function generateToken() {
       var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       var token = "";
