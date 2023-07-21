@@ -1,3 +1,21 @@
+function getCandidateData() {
+      var candidateName = document.getElementById("candidate-name").value;
+       var candidateEmail = document.getElementById("candidate-email").value;
+
+       if (candidateName.length < 5) {
+        alert("Candidate Name should have a minimum of 5 characters.");
+        return;
+      }
+
+      if (!isValidEmail(candidateEmail)) {
+        alert("Candidate Email should be a valid email address.");
+        return;
+      }
+
+       var token = generateToken();
+       saveTokenToFirebase(token, candidateName, candidateEmail);
+    }
+
 // Wrap the code inside the DOMContentLoaded event listener
   document.addEventListener('DOMContentLoaded', function() {
     var agentID = "";
@@ -43,24 +61,6 @@
         return newTokenKey;
         } 
       });
-    }
-
-    function getCandidateData() {
-      var candidateName = document.getElementById("candidate-name").value;
-       var candidateEmail = document.getElementById("candidate-email").value;
-
-       if (candidateName.length < 5) {
-        alert("Candidate Name should have a minimum of 5 characters.");
-        return;
-      }
-
-      if (!isValidEmail(candidateEmail)) {
-        alert("Candidate Email should be a valid email address.");
-        return;
-      }
-
-       var token = generateToken();
-       saveTokenToFirebase(token, candidateName, candidateEmail);
     }
 
     onfocus = function() {
