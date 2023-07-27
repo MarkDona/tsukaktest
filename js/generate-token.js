@@ -1,24 +1,6 @@
 var agentID = "";
 var newTokenKey = "";
 
-function getCandidateData(){
-       var candidateName = document.getElementById("candidate-name").value;
-       var candidateEmail = document.getElementById("candidate-email").value;
-
-       if (candidateName.length < 5) {
-        alert("Candidate Name should have a minimum of 5 characters.");
-        return;
-      }
-
-      if (!isValidEmail(candidateEmail)) {
-        alert("Candidate Email should be a valid email address.");
-        return;
-      }
-
-       var token = generateToken();
-       saveTokenToFirebase(token, candidateName, candidateEmail);
-     }
- 
    function generateToken() {
       var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
       var token = "";
@@ -62,6 +44,24 @@ function getCandidateData(){
       });
       
     }
+
+function getCandidateData(){
+       var candidateName = document.getElementById("candidate-name").value;
+       var candidateEmail = document.getElementById("candidate-email").value;
+
+       if (candidateName.length < 5) {
+        alert("Candidate Name should have a minimum of 5 characters.");
+        return;
+      }
+
+      if (!isValidEmail(candidateEmail)) {
+        alert("Candidate Email should be a valid email address.");
+        return;
+      }
+
+       var token = generateToken();
+       saveTokenToFirebase(token, candidateName, candidateEmail);
+     }
 
     //onfocus = function () {location.reload (true)}
 
