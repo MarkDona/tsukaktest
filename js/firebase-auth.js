@@ -17,7 +17,7 @@ function login() {
           alert("Sorry, your account is not yet approved!");
             window.location.href = "agent-login";
         } else {
-          window.location.href = "dashboard.html";
+          window.location.href = "dashboard";
         }
 
       })
@@ -87,7 +87,7 @@ function signup() {
             alert("Sorry, your account is not yet approved!");
               window.location.href = "agent-login";
           } else {
-            window.location.href = "dashboard.html";
+            window.location.href = "dashboard";
           }
 
         })
@@ -132,7 +132,7 @@ function resetForm() {
     firebase.auth().signOut()
       .then(() => {
         // User signed out successfully
-        window.location.href = "index.html";
+        window.location.href = "agent-login";
       })
       .catch((error) => {
         console.error('Logout error:', error);
