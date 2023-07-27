@@ -124,31 +124,6 @@ function getCandidateData(){
         console.log("Link copied to clipboard: " + link);
       });
     }
-
-     // Form submission event listener
-      let generate_toke = $('#generate_toke')
-      document.getElementById('generate_toke').addEventListener('submit', function (event) {
-        const xhr = new XMLHttpRequest();
-		const url = "https://sendmail.rf.htu.edu.gh/sendEmail.php";
-		xhr.open("POST", url);
-		xhr.onreadystatechange = someHandler;
-		xhr.send();
-          event.preventDefault(); // Prevent the default form submission
-          $.ajax({
-            url: generate_toke.attr('action'),
-            type: 'post',
-            dataType: 'json',
-            cache: false,
-            contentType: false,
-            processData: false,
-            data: new FormData(this),
-            success: function (res) {
-                if (res.status === 201){
-                    toastAlert('success', res.message)
-                    redirect('https://tsuks-marvelous-project.webflow.io/dashboard?emailStatus=sent')
-                }
-            }
-          })
         
     // Prevent copying of "LinkWithToken" from the table
     document.addEventListener('DOMContentLoaded', function() {
