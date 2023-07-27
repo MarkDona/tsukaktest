@@ -15,6 +15,7 @@ function login() {
 
         if (agentData.accountStatus == "unapproved"){
           alert("Sorry, your account is not yet approved!");
+            window.location.href = "agent-login";
         } else {
           window.location.href = "dashboard.html";
         }
@@ -84,6 +85,7 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus == "unapproved"){
             alert("Sorry, your account is not yet approved!");
+              window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard.html";
           }
