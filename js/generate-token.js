@@ -45,23 +45,6 @@ var newTokenKey = "";
       
     }
 
-function getCandidateData(){
-       var candidateName = document.getElementById("candidate-name").value;
-       var candidateEmail = document.getElementById("candidate-email").value;
-
-       if (candidateName.length < 5) {
-        alert("Candidate Name should have a minimum of 5 characters.");
-        return;
-      }
-
-      if (!isValidEmail(candidateEmail)) {
-        alert("Candidate Email should be a valid email address.");
-        return;
-      }
-
-       var token = generateToken();
-       saveTokenToFirebase(token, candidateName, candidateEmail);
-     }
 
     //onfocus = function () {location.reload (true)}
 
@@ -137,7 +120,30 @@ function getCandidateData(){
       });
     });
 
-
+ // Form submission event listener
+      let generate_toke = $('#generate_toke')
+      document.getElementById('generate_toke').addEventListener('submit', function (event) {
+        const xhr = new XMLHttpRequest();
+		const url = "https://sendmail.rf.htu.edu.gh/sendEmail.php";
+		xhr.open("POST", url);
+		xhr.onreadystatechange = someHandler;
+		xhr.send();
+          event.preventDefault(); // Prevent the default form submission
+          $.ajax({
+            url: generate_toke.attr('action'),
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: new FormData(this),
+            success: function (res) {
+                if (res.status === 201){
+                    toastAlert('success', res.message)
+                    redirect('https://tsuks-marvelous-project.webflow.io/dashboard?emailStatus=sent')
+                }
+            }
+          })
     function logout() {
       firebase.auth().signOut()
         .then(() => {
