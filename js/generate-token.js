@@ -1,11 +1,19 @@
+var agentID = "";
+var newTokenKey = "";
+   function generateToken() {
+      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      var token = "";
 
-function isValidEmail(email) {
-     // Simple email format validation
-      var emailRegex = /\S+@\S+\.\S+/;
-      return emailRegex.test(email);
+      for (var i = 0; i < 8; i++) {
+        var randomIndex = Math.floor(Math.random() * characters.length);
+        token += characters.charAt(randomIndex);
+      }
+
+      return token;
     }
 
-function saveTokenToFirebase(token, candidateName, candidateEmail) {
+    function saveTokenToFirebase(token, candidateName, candidateEmail) {
+
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
@@ -17,7 +25,7 @@ function saveTokenToFirebase(token, candidateName, candidateEmail) {
           token: token,
           candidateName: candidateName,
           candidateEmail: candidateEmail,
-          linkWithToken: ` https://tsuks-marvelous-project.webflow.io/application-landing-page`,
+          linkWithToken: `https://tsuks-marvelous-project.webflow.io/application-landing-page`,
           linkStatus: 'Copied',
           tokenStatus: 'Active',
           createdAt: timestamp,
@@ -35,20 +43,13 @@ function saveTokenToFirebase(token, candidateName, candidateEmail) {
         return newTokenKey;
         } 
       });
+      
     }
 
-function generateToken() {
-      var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-      var token = "";
-      for (var i = 0; i < 8; i++) {
-        var randomIndex = Math.floor(Math.random() * characters.length);
-        token += characters.charAt(randomIndex);
-      }
-      return token;
-    }
 
-function getCandidateData() {
-      var candidateName = document.getElementById("candidate-name").value;
+    function getCandidateData(){
+
+       var candidateName = document.getElementById("candidate-name").value;
        var candidateEmail = document.getElementById("candidate-email").value;
 
        if (candidateName.length < 5) {
@@ -63,14 +64,23 @@ function getCandidateData() {
 
        var token = generateToken();
        saveTokenToFirebase(token, candidateName, candidateEmail);
+     }
+ 
+    //onfocus = function () {location.reload (true)}
+
+    function showPopup() {
+      var popupContainer = document.querySelector(".popup-container");
+      popupContainer.style.display = "block";
     }
 
-// Wrap the code inside the DOMContentLoaded event listener
-  document.addEventListener('DOMContentLoaded', function() {
-    var agentID = "";
-    var newTokenKey = "";
+    function closePopup() {
+      var popupContainer = document.querySelector(".popup-container");
+      popupContainer.style.display = "none";
+    }
 
-   function generateLink(newTokenKey) {
+
+    function generateLink(newTokenKey) {
+     
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           // User is signed in.
@@ -78,7 +88,7 @@ function getCandidateData() {
           console.log("AgentID: " + agentID);
 
 
-          var link = " https://tsuks-marvelous-project.webflow.io/application-landing-page" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
+          var link = "https://tsuks-marvelous-project.webflow.io/application-landing-page" + "?agentID=" + agentID + "&" + "tokenID=" + newTokenKey;
           
           var linkContainer = document.getElementById("link-container");
           var linkElement = document.getElementById("link");
@@ -102,21 +112,11 @@ function getCandidateData() {
       });
     }
 
-    onfocus = function() {
-      location.reload(true);
-    };
-
-    function showPopup() {
-        var popupContainer = document.querySelector(".popup-container");
-      popupContainer.style.display = "block";
+    function isValidEmail(email) {
+      // Simple email format validation
+      var emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
     }
-
-    function closePopup() {
-      var popupContainer = document.querySelector(".popup-container");
-      popupContainer.style.display = "none";
-    }
-
-    
 
     function copyLink() {
       var linkElement = document.getElementById("link");
@@ -128,16 +128,7 @@ function getCandidateData() {
       });
     }
 
-    // Prevent copying of "LinkWithToken" from the table
-    var uncopyableCells = document.getElementsByClassName('uncopyable');
-    Array.from(uncopyableCells).forEach(function(cell) {
-      cell.addEventListener('copy', function(event) {
-        event.preventDefault();
-        return false;
-      });
-    });
-
-    // Form submission event listener
+     // Form submission event listener
       let generate_toke = $('#generate_toke')
       document.getElementById('generate_toke').addEventListener('submit', function (event) {
         const xhr = new XMLHttpRequest();
@@ -160,20 +151,28 @@ function getCandidateData() {
                     redirect('https://tsuks-marvelous-project.webflow.io/dashboard?emailStatus=sent')
                 }
             }
-     })
+          })
+        
+    // Prevent copying of "LinkWithToken" from the table
+    document.addEventListener('DOMContentLoaded', function() {
+      var uncopyableCells = document.getElementsByClassName('uncopyable');
 
-      // Call the getCandidateData function
-      getCandidateData();
+      Array.from(uncopyableCells).forEach(function(cell) {
+        cell.addEventListener('copy', function(event) {
+          event.preventDefault();
+          return false;
+        });
+      });
     });
+
 
     function logout() {
       firebase.auth().signOut()
         .then(() => {
           // User signed out successfully
-          window.location.href = "login.html";
+          window.location.href = "agent-login";
         })
         .catch((error) => {
           console.error('Logout error:', error);
         });
     }
-  });
