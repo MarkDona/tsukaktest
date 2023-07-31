@@ -127,8 +127,7 @@ function sendEmail(name) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      name: name,
-      email: email
+      name: name
     })
   })
     .then(response => response.json())
