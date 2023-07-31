@@ -134,16 +134,16 @@ function sendEmail(name) {
     .then(data => {
       if (data.success) {
         // Email sent successfully
-        toastAlert("success", data.message);
+        console.log("success", data.message);
         redirect("https://tsuks-marvelous-project.webflow.io/agent-login");
       } else {
         // Email sending failed
-        toastAlert("error", data.message);
+        console.log("error", data.message);
       }
     })
     .catch(error => {
       console.error("Error sending email:", error);
-      toastAlert("error", "An error occurred while sending the email.");
+      console.log("error", "An error occurred while sending the email.");
     });
 }
 
