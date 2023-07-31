@@ -97,7 +97,7 @@ function signup() {
       firebase.database().ref('agents/' + agentID).update(updates);
       
 // Trigger the email sending using fetch API
-  fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
+  fetch('https://tsuks-marvelous-project.webflow.io/sendymail', {
   method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
   headers: {
     'Content-Type': 'application/json'
