@@ -86,7 +86,7 @@ function signup() {
           if (agentData.accountStatus == "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
               sendEmail(name, email); 
-              window.location.href = "agent-login";
+              // window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
           }
