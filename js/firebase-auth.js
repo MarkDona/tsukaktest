@@ -96,44 +96,47 @@ function signup() {
       updates['/tokens/'] = "";
       firebase.database().ref('agents/' + agentID).update(updates);
       
-alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-      // Trigger the email sending using fetch API
-      fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
-        method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email // Include email in the data sent to the PHP file
-        })
-      })
-      .then(response => {
-        // Check if the email was sent successfully (you can define this in the PHP file)
-        if (response.ok) {
-          console.log("Email sent successfully!");
-          alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-        } else {
-          console.log("Email sending failed.");
-        }
-      })
-      .catch(error => {
-        console.error("Error sending email:", error);
-      });
-    })
-    .catch((error) => {
-      // Handle signup errors and show error message in alert box
-      var errorCode = error.code;
-      var errorMessage = error.message;
+// Trigger the email sending using fetch API
+  fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
+  method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: name,
+    email: email
+  })
+})
+.then(response => response.json())
+.then(data => {
+  if (data.success) {
+    // Email sent successfully
+    alert("Email sent successfully!");
+    // Redirect to the dashboard
+    window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
+  } else {
+    // Email sending failed
+    alert("Email could not be sent. Error: " + data.error);
+  }
+})
+.catch(error => {
+  console.error("Error sending email:", error);
+});
+})
+.catch((error) => {
+// Handle signup errors and show error message in alert box
+var errorCode = error.code;
+var errorMessage = error.message;
 
-      if (errorCode === 'auth/weak-password') {
-        alert("Password is too weak. Please choose a stronger password.");
-      } else {
-        alert("Signup error: " + errorMessage);
-      }
-      // Reset the form fields after displaying the alert
-      resetForm();
-    });
+if (errorCode === 'auth/weak-password') {
+  alert("Password is too weak. Please choose a stronger password.");
+} else {
+  alert("Signup error: " + errorMessage);
+}
+// Reset the form fields after displaying the alert
+resetForm();
+});
+
 }
 
 // let register_user = $('#register_user')
