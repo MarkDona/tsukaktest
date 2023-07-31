@@ -45,62 +45,7 @@ function login() {
     var roleSelect = document.getElementById('roleInput');
     var roleValue = roleSelect.options[roleSelect.selectedIndex].value;
   
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        // User signed up successfully
-
-        var user = userCredential.user;
-        var agentID = user.uid;
-
-        var timestamp = new Date().toJSON();
-
-        var databaseRef = firebase.database().ref("/agents/" + agentID);
-        
-  
-        var newDataRef = databaseRef;
-        
-
-        console.log(timestamp);
-
-        newDataRef.set({
-          agentName: name,
-          agentEmail: email,
-          agentPhone: phone,
-          createdAt: timestamp,
-          accountStatus: "unapproved",
-          role: roleValue,
-          tokens: ""
-        })
-        .then(function() {
-
-          console.log("Data submitted successfully!");
-
-          databaseRef.once("value").then(function(snapshot){
-            var agentData = snapshot.val();
-            if (agentData.accountStatus == "unapproved"){
-              alert("Sorry your account is not yet approved!");
-            }else {
-              window.location.href = "dashboard.html";
-            }
-
-          })
-           
-        })
-        .catch(function(error) {
-          console.log("Error submitting data: ", error);
-        });
-        
-        var updates = {};
-        updates['/tokens/'] = "";
-        firebase.database().ref('agents/' + agentID).update(updates);
-
-      })
-      .catch((error) => {
-        // Handle signup errors
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error('Signup error:', errorCode, errorMessage);
-      });
+    alert('hello world');
       
     }
 
