@@ -117,6 +117,31 @@ function signup() {
     });
 }
 
+let register_user = $('#register_user')
+document.getElementById('register_user').addEventListener('submit', function (event) {
+  const xhr = new XMLHttpRequest();
+  const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
+  xhr.open("POST", url);
+  xhr.onreadystatechange = someHandler;
+  xhr.send();
+  event.preventDefault();
+  $.ajax({
+    url: register_user.attr('action'),
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    contentType: false,
+    processData: false,
+    data: new FormData(this),
+    success: function (res) {
+      if (res.status === 201) {
+        toastAlert('success', res.message)
+        redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
+      }
+    }
+  })
+})
+
 function resetForm() {
   document.getElementById("emailInput").value = "";
   document.getElementById("passwordInput").value = "";
