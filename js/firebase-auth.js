@@ -85,7 +85,7 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus == "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-              sendEmail(name, email); 
+              sendEmail(name); 
               // window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
@@ -119,7 +119,7 @@ function signup() {
 }
 
 
-function sendEmail(name, email) {
+function sendEmail(name) {
   // Send the email using fetch API
   fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
     method: "POST",
