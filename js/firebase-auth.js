@@ -121,6 +121,11 @@ function signup() {
 
 function sendEmail(name) {
   console.log("Name:", name);
+  const xhr = new XMLHttpRequest();
+  const url = "https://sendmail.rf.htu.edu.gh/sendEmail.php";
+  xhr.open("POST", url);
+  xhr.onreadystatechange = someHandler;
+  xhr.send();
   // Send the email using fetch API
   fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
     method: "POST",
