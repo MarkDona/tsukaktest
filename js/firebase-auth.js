@@ -120,6 +120,7 @@ function signup() {
 
 
 function sendEmail(name) {
+  console.log("Name:", name);
   // Send the email using fetch API
   fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
     method: "POST",
