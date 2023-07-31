@@ -95,7 +95,8 @@ function signup() {
       var updates = {};
       updates['/tokens/'] = "";
       firebase.database().ref('agents/' + agentID).update(updates);
-
+      
+alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
       // Trigger the email sending using fetch API
       fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
         method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
