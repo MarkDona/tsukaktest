@@ -14,7 +14,7 @@ function login() {
         var agentData = snapshot.val();
 
         if (agentData.accountStatus == "unapproved"){
-          alert("Sorry, your account is not yet approved!");
+          alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
             window.location.href = "agent-login";
         } else {
           window.location.href = "dashboard";
@@ -84,7 +84,7 @@ function signup() {
         databaseRef.once("value").then(function(snapshot){
           var agentData = snapshot.val();
           if (agentData.accountStatus == "unapproved"){
-            alert("Sorry, your account is not yet approved!");
+            alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
               window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
