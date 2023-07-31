@@ -128,7 +128,8 @@ function sendEmail(name) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      name: name
+      name: name,
+      submit: true,
     })
   })
     .then(response => response.json())
