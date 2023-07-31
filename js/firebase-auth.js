@@ -42,7 +42,7 @@ function login() {
 function signup() {
   var email = document.getElementById("signupEmailInput").value;
   var password = document.getElementById("signupPasswordInput").value;
-  var confirmPassword = document.getElementById("confirmSignupPasswordInput").value; // New line to get the confirmed password
+  var confirmPassword = document.getElementById("confirmSignupPasswordInput").value;
   var name = document.getElementById("nameInput").value;
   var phone = document.getElementById("phoneInput").value;
   var roleSelect = document.getElementById('roleInput');
@@ -56,14 +56,12 @@ function signup() {
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // User signed up successfully
-
       var user = userCredential.user;
       var agentID = user.uid;
 
       var timestamp = new Date().toJSON();
 
       var databaseRef = firebase.database().ref("/agents/" + agentID);
-
       var newDataRef = databaseRef;
 
       console.log(timestamp);
@@ -78,20 +76,17 @@ function signup() {
         tokens: ""
       })
       .then(function() {
-
         console.log("Data submitted successfully!");
 
         databaseRef.once("value").then(function(snapshot){
           var agentData = snapshot.val();
-          if (agentData.accountStatus == "unapproved"){
+          if (agentData.accountStatus === "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-              window.location.href = "agent-login";
+            window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
           }
-
-        })
-
+        });
       })
       .catch(function(error) {
         console.log("Error submitting data: ", error);
@@ -101,6 +96,28 @@ function signup() {
       updates['/tokens/'] = "";
       firebase.database().ref('agents/' + agentID).update(updates);
 
+      // Trigger the email sending using fetch API
+      fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
+        method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email // Include email in the data sent to the PHP file
+        })
+      })
+      .then(response => {
+        // Check if the email was sent successfully (you can define this in the PHP file)
+        if (response.ok) {
+          console.log("Email sent successfully!");
+        } else {
+          console.log("Email sending failed.");
+        }
+      })
+      .catch(error => {
+        console.error("Error sending email:", error);
+      });
     })
     .catch((error) => {
       // Handle signup errors and show error message in alert box
@@ -116,31 +133,30 @@ function signup() {
       resetForm();
     });
 }
-
-let register_user = $('#register_user')
-document.getElementById('register_user').addEventListener('submit', function (event) {
-  const xhr = new XMLHttpRequest();
-  const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
-  xhr.open("POST", url);
-  xhr.onreadystatechange = someHandler;
-  xhr.send();
-  event.preventDefault();
-  $.ajax({
-    url: register_user.attr('action'),
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    contentType: false,
-    processData: false,
-    data: new FormData(this),
-    success: function (res) {
-      if (res.status === 201) {
-        toastAlert('success', res.message)
-        redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
-      }
-    }
-  })
-})
+// let register_user = $('#register_user')
+// document.getElementById('register_user').addEventListener('submit', function (event) {
+//   const xhr = new XMLHttpRequest();
+//   const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
+//   xhr.open("POST", url);
+//   xhr.onreadystatechange = someHandler;
+//   xhr.send();
+//   event.preventDefault();
+//   $.ajax({
+//     url: register_user.attr('action'),
+//     type: 'post',
+//     dataType: 'json',
+//     cache: false,
+//     contentType: false,
+//     processData: false,
+//     data: new FormData(this),
+//     success: function (res) {
+//       if (res.status === 201) {
+//         toastAlert('success', res.message)
+//         redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
+//       }
+//     }
+//   })
+// })
 
 function resetForm() {
   document.getElementById("emailInput").value = "";
