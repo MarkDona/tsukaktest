@@ -97,7 +97,7 @@ function signup() {
       firebase.database().ref('agents/' + agentID).update(updates);
       
 // Trigger the email sending using fetch API
-  fetch('https://tsuks-marvelous-project.webflow.io/sendymail', {
+  fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
   method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
   headers: {
     'Content-Type': 'application/json'
@@ -111,12 +111,12 @@ function signup() {
 .then(data => {
   if (data.success) {
     // Email sent successfully
-    alert("Email sent successfully!");
+    console.log("Email sent successfully!");
     // Redirect to the dashboard
     window.location.href = "https://tsuks-marvelous-project.webflow.io/agent-login";
   } else {
     // Email sending failed
-    alert("Email could not be sent. Error: " + data.error);
+    console.log("Email could not be sent. Error: " + data.error);
   }
 })
 .catch(error => {
