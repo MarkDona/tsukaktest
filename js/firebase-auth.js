@@ -82,27 +82,6 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus === "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-            fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
-            method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
-            headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: name,
-          email: email // Include email in the data sent to the PHP file
-        })
-      })
-      .then(response => {
-        // Check if the email was sent successfully (you can define this in the PHP file)
-        if (response.ok) {
-          console.log("Email sent successfully!");
-        } else {
-          console.log("Email sending failed.");
-        }
-      })
-      .catch(error => {
-        console.error("Error sending email:", error);
-      });
             window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
@@ -118,7 +97,28 @@ function signup() {
       firebase.database().ref('agents/' + agentID).update(updates);
 
       // Trigger the email sending using fetch API
-      
+      fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
+        method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email // Include email in the data sent to the PHP file
+        })
+      })
+      .then(response => {
+        // Check if the email was sent successfully (you can define this in the PHP file)
+        if (response.ok) {
+          console.log("Email sent successfully!");
+          alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
+        } else {
+          console.log("Email sending failed.");
+        }
+      })
+      .catch(error => {
+        console.error("Error sending email:", error);
+      });
     })
     .catch((error) => {
       // Handle signup errors and show error message in alert box
