@@ -82,24 +82,9 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus === "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-            window.location.href = "agent-login";
-          } else {
-            window.location.href = "dashboard";
-          }
-        });
-      })
-      .catch(function(error) {
-        console.log("Error submitting data: ", error);
-      });
-
-      var updates = {};
-      updates['/tokens/'] = "";
-      firebase.database().ref('agents/' + agentID).update(updates);
-
-      // Trigger the email sending using fetch API
-      fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
-        method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
-        headers: {
+            fetch('https://sendmail.rf.htu.edu.gh/sendymail.php', {
+            method: 'POST', // You can change this to 'GET' if your PHP file expects GET requests
+            headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
@@ -118,6 +103,22 @@ function signup() {
       .catch(error => {
         console.error("Error sending email:", error);
       });
+            window.location.href = "agent-login";
+          } else {
+            window.location.href = "dashboard";
+          }
+        });
+      })
+      .catch(function(error) {
+        console.log("Error submitting data: ", error);
+      });
+
+      var updates = {};
+      updates['/tokens/'] = "";
+      firebase.database().ref('agents/' + agentID).update(updates);
+
+      // Trigger the email sending using fetch API
+      
     })
     .catch((error) => {
       // Handle signup errors and show error message in alert box
@@ -133,6 +134,7 @@ function signup() {
       resetForm();
     });
 }
+
 // let register_user = $('#register_user')
 // document.getElementById('register_user').addEventListener('submit', function (event) {
 //   const xhr = new XMLHttpRequest();
