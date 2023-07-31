@@ -27,6 +27,7 @@ function login() {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.error('Sign in error:', errorCode, errorMessage);
+          alert('Sign in error:', errorCode, errorMessage);
       });
 
   }
