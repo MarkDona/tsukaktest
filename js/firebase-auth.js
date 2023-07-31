@@ -131,7 +131,7 @@ function resetForm() {
   function logout() {
     firebase.auth().signOut()
       .then(() => {
-        // User signed out successfully
+        // User signed out successfullyee
         window.location.href = "agent-login";
       })
       .catch((error) => {
