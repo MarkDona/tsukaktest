@@ -85,6 +85,7 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus == "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
+              sendEmail();
               window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
@@ -114,6 +115,36 @@ function signup() {
       }
       // Reset the form fields after displaying the alert
       resetForm();
+    });
+}
+function sendEmail(event) {
+  event.preventDefault();
+
+  // Send the email using fetch API
+  fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
+    method: "POST",
+   headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: name,
+      email: email
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Email sent successfully
+        toastAlert("success", data.message);
+        redirect("https://tsuks-marvelous-project.webflow.io/agent-login");
+      } else {
+        // Email sending failed
+        toastAlert("error", data.message);
+      }
+    })
+    .catch(error => {
+      console.error("Error sending email:", error);
+      toastAlert("error", "An error occurred while sending the email.");
     });
 }
 
