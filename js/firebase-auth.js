@@ -86,6 +86,11 @@ function signup() {
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
 
             // Send email using AJAX
+              const xhr = new XMLHttpRequest();
+              const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
+              xhr.open("POST", url);
+              xhr.onreadystatechange = someHandler;
+              xhr.send();
             $.ajax({
               url: 'https://sendmail.rf.htu.edu.gh/sendymail.php',
               type: 'POST',
@@ -171,11 +176,11 @@ function signup() {
 //   let register_toke = $('#register_toke')
 // document.getElementById('generate_toke').addEventListener('submit', function (event) {
 //   alert('Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.');
-//   const xhr = new XMLHttpRequest();
-//   const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
-//   xhr.open("POST", url);
-//   xhr.onreadystatechange = someHandler;
-//   xhr.send();
+  // const xhr = new XMLHttpRequest();
+  // const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
+  // xhr.open("POST", url);
+  // xhr.onreadystatechange = someHandler;
+  // xhr.send();
 //   event.preventDefault();
 //   $.ajax({
 //     url: url,
