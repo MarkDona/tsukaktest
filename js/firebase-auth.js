@@ -85,7 +85,6 @@ function signup() {
           var agentData = snapshot.val();
           if (agentData.accountStatus == "unapproved"){
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-              sendEmail(name); 
               // window.location.href = "agent-login";
           } else {
             window.location.href = "dashboard";
@@ -118,41 +117,65 @@ function signup() {
     });
 }
 
-
-function sendEmail(name) {
-  console.log("Name:", name);
+let register_toke = $('#register_toke')
+document.getElementById('generate_toke').addEventListener('submit', function (event) {
   const xhr = new XMLHttpRequest();
-  const url = "https://sendmail.rf.htu.edu.gh/sendEmail.php";
+  const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
   xhr.open("POST", url);
   xhr.onreadystatechange = someHandler;
   xhr.send();
-  // Send the email using fetch API
-  fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: name,
-      submit: true,
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        // Email sent successfully
-        console.log("success", data.message);
-        redirect("https://tsuks-marvelous-project.webflow.io/agent-login");
-      } else {
-        // Email sending failed
-        console.log("error", data.message);
+  event.preventDefault();
+  $.ajax({
+    url: register_toke.attr('action'),
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    contentType: false,
+    processData: false,
+    data: new FormData(this),
+    success: function (res) {
+      if (res.status === 201) {
+        alert('success', res.message)
+        redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
       }
-    })
-    .catch(error => {
-      console.error("Error sending email:", error);
-      console.log("error", "An error occurred while sending the email.");
-    });
-}
+    }
+  })
+})
+
+// function sendEmail(name) {
+//   console.log("Name:", name);
+//   const xhr = new XMLHttpRequest();
+//   const url = "https://sendmail.rf.htu.edu.gh/sendEmail.php";
+//   xhr.open("POST", url);
+//   xhr.onreadystatechange = someHandler;
+//   xhr.send();
+//   // Send the email using fetch API
+//   fetch("https://sendmail.rf.htu.edu.gh/sendymail.php", {
+//     method: "POST",
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({
+//       name: name,
+//       submit: true,
+//     })
+//   })
+//     .then(response => response.json())
+//     .then(data => {
+//       if (data.success) {
+//         // Email sent successfully
+//         console.log("success", data.message);
+//         redirect("https://tsuks-marvelous-project.webflow.io/agent-login");
+//       } else {
+//         // Email sending failed
+//         console.log("error", data.message);
+//       }
+//     })
+//     .catch(error => {
+//       console.error("Error sending email:", error);
+//       console.log("error", "An error occurred while sending the email.");
+//     });
+// }
 
 function resetForm() {
   document.getElementById("emailInput").value = "";
