@@ -103,7 +103,7 @@ function signup() {
             });
 
             // Redirect to agent login
-            // window.location.href = "agent-login";
+            window.location.href = "agent-login";
           } else {
             // Redirect to dashboard
             window.location.href = "dashboard";
