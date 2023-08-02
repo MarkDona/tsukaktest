@@ -95,15 +95,14 @@ function signup() {
               type: 'POST',
               data: { content: name },
               success: function(response) {
-                console.log('Email sent successfully:', response);
+                window.location.href = "agent-login";
               },
               error: function(xhr, status, error) {
-                console.error('Error sending email:', error);
+                window.location.href = "agent-login";
               }
             });
 
-            // Redirect to agent login
-            window.location.href = "agent-login";
+            
           } else {
             // Redirect to dashboard
             window.location.href = "dashboard";
