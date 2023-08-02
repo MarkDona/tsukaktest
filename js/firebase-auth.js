@@ -117,32 +117,6 @@ function signup() {
     });
 }
 
-let register_toke = $('#register_toke')
-document.getElementById('generate_toke').addEventListener('submit', function (event) {
-  alert('Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.');
-  const xhr = new XMLHttpRequest();
-  const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
-  xhr.open("POST", url);
-  xhr.onreadystatechange = someHandler;
-  xhr.send();
-  event.preventDefault();
-  $.ajax({
-    url: url,
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    contentType: false,
-    processData: false,
-    data: new FormData(this),
-    success: function (res) {
-      if (res.status === 201) {
-        alert('success', res.message)
-        redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
-      }
-    }
-  })
-})
-
 // function sendEmail(name) {
 //   console.log("Name:", name);
 //   const xhr = new XMLHttpRequest();
