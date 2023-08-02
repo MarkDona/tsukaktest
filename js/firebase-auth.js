@@ -89,7 +89,6 @@ function signup() {
               const xhr = new XMLHttpRequest();
               const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
               xhr.open("POST", url);
-              xhr.onreadystatechange = someHandler;
               xhr.send();
             $.ajax({
               url: 'https://sendmail.rf.htu.edu.gh/sendymail.php',
