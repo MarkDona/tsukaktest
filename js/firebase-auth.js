@@ -102,7 +102,7 @@ function signup() {
               }
             });
 
-            
+        window.location.href = "agent-login";
           } else {
             // Redirect to dashboard
             window.location.href = "dashboard";
