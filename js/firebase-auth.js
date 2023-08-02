@@ -96,7 +96,7 @@ function signup() {
               data: { content: name },
               success: function(response) {
                 console.log('Email sent successfully:', response);
-                window.location.href = "agent-login";
+                // window.location.href = "agent-login";
               },
               error: function(xhr, status, error) {
                 console.error('Error sending email:', error);
