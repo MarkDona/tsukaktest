@@ -42,32 +42,31 @@ function login() {
 function signup() {
   var email = document.getElementById("signupEmailInput").value;
   var password = document.getElementById("signupPasswordInput").value;
-  var confirmPassword = document.getElementById("confirmSignupPasswordInput").value; // New line to get the confirmed password
+  var confirmPassword = document.getElementById("confirmSignupPasswordInput").value;
   var name = document.getElementById("nameInput").value;
   var phone = document.getElementById("phoneInput").value;
   var roleSelect = document.getElementById('roleInput');
   var roleValue = roleSelect.options[roleSelect.selectedIndex].value;
 
+  // Check if passwords match
   if (password !== confirmPassword) {
     alert("Passwords do not match. Please make sure your passwords match.");
     return;
   }
 
+  // Create a new user with email and password
   firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // User signed up successfully
-
       var user = userCredential.user;
       var agentID = user.uid;
-
       var timestamp = new Date().toJSON();
-
       var databaseRef = firebase.database().ref("/agents/" + agentID);
-
       var newDataRef = databaseRef;
 
       console.log(timestamp);
 
+      // Set agent data in the database
       newDataRef.set({
         agentName: name,
         agentEmail: email,
@@ -78,18 +77,33 @@ function signup() {
         tokens: ""
       })
       .then(function() {
-
         console.log("Data submitted successfully!");
 
+        // Check account status and send email
         databaseRef.once("value").then(function(snapshot){
           var agentData = snapshot.val();
-          if (agentData.accountStatus == "unapproved"){
+          if (agentData.accountStatus == "unapproved") {
             alert("Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.");
-              // window.location.href = "agent-login";
+
+            // Send email using AJAX
+            $.ajax({
+              url: 'https://sendmail.rf.htu.edu.gh/sendymail.php',
+              type: 'POST',
+              data: { content: name },
+              success: function(response) {
+                console.log('Email sent successfully:', response);
+              },
+              error: function(xhr, status, error) {
+                console.error('Error sending email:', error);
+              }
+            });
+
+            // Redirect to agent login
+            // window.location.href = "agent-login";
           } else {
+            // Redirect to dashboard
             window.location.href = "dashboard";
           }
-
         })
 
       })
@@ -97,6 +111,7 @@ function signup() {
         console.log("Error submitting data: ", error);
       });
 
+      // Reset tokens
       var updates = {};
       updates['/tokens/'] = "";
       firebase.database().ref('agents/' + agentID).update(updates);
@@ -151,6 +166,34 @@ function signup() {
 //       console.log("error", "An error occurred while sending the email.");
 //     });
 // }
+
+//   <script>
+//   let register_toke = $('#register_toke')
+// document.getElementById('generate_toke').addEventListener('submit', function (event) {
+//   alert('Thanks for signing up to be an agent. Your application will be reviewed and hopefully approved by our team shortly.');
+//   const xhr = new XMLHttpRequest();
+//   const url = "https://sendmail.rf.htu.edu.gh/sendymail.php";
+//   xhr.open("POST", url);
+//   xhr.onreadystatechange = someHandler;
+//   xhr.send();
+//   event.preventDefault();
+//   $.ajax({
+//     url: url,
+//     type: 'post',
+//     dataType: 'json',
+//     cache: false,
+//     contentType: false,
+//     processData: false,
+//     data: new FormData(this),
+//     success: function (res) {
+//       if (res.status === 201) {
+//         alert('success', res.message)
+//         redirect('https://tsuks-marvelous-project.webflow.io/agent-login')
+//       }
+//     }
+//   })
+// })
+// </script>
 
 function resetForm() {
   document.getElementById("emailInput").value = "";
