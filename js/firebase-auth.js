@@ -127,7 +127,7 @@ document.getElementById('generate_toke').addEventListener('submit', function (ev
   xhr.send();
   event.preventDefault();
   $.ajax({
-    url: register_toke.attr('action'),
+    url: url,
     type: 'post',
     dataType: 'json',
     cache: false,
