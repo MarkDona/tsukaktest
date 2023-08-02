@@ -101,8 +101,6 @@ function signup() {
                 console.error('Error sending email:', error);
               }
             });
-
-        window.location.href = "agent-login";
           } else {
             // Redirect to dashboard
             window.location.href = "dashboard";
