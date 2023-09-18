@@ -91,7 +91,7 @@ function signup() {
               // xhr.open("POST", url);
               // xhr.send();
             $.ajax({
-              url: 'https://sendmail.rf.htu.edu.gh/sendymail.php',
+              url: 'https://tsuk.enaitchdevelopers.com/sendymail.php',
               type: 'POST',
               data: { content: name },
               success: function(response) {
